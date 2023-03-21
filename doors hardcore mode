@@ -1,0 +1,677 @@
+if game:GetService("ReplicatedStorage").GameData.Floor.Value == "Hotel" then
+firesignal(game.ReplicatedStorage.EntityInfo.Caption.OnClientEvent, "You executed the script, made by Eee#5254 dm me if it broke during the update. thank you anyways your script will load in 5 seconds enjoy.")
+wait(1.5)
+-- Achievement
+local Achievements = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Custom%20Achievements/Source.lua"))()
+
+-- Creates and displays your custom achievement
+Achievements.Get({
+    Title = "The harder the Better it gets.",
+    Desc = "Make doors better that Its harder!",
+    Reason = 'Execute hardcore mode.',
+    Image = "https://github.com/check78/worldcuuuup/blob/main/PhilStone.png?raw=true",
+})
+loadstring(game:HttpGet("https://raw.githubusercontent.com/check78/worldcuuuup/main/VictrolaRecreation.txt"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/check78/worldcuuuup/main/MusicReplace.txt"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/check78/Entities/main/DeathSound.txt"))()
+local Template = loadstring(game:HttpGet("https://github.com/MuhXd/DoorSuff/blob/main/HardcoreTempate/TemplateCode.lua?raw=true"))()
+
+
+local SelfModules = {
+    Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Functions.lua"))(),
+}
+DefaultConfig  = {
+    Model="rbxassetid://11855776556",
+    Hurts = true,
+}
+local Screech = {}
+
+Screech.Run = function(Model)
+    
+FakeScreech2 = Model.entity
+  
+		local v1 = script:FindFirstAncestor("MainUI");
+		local l__LocalPlayer__2 = game.Players.LocalPlayer;
+		local u1 = 0;
+		local l__TweenService__2 = game:GetService("TweenService");
+	
+		p1 = require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game)
+		local v3 = FakeScreech2
+			local v4 = math.random(-1, 1) * 2;
+			if v4 < 0 then
+				v4 = -1.1;
+			end;
+			u1 = u1 + 1;
+			local l__unit__5 = (p1.finalCamCFrame.LookVector * Vector3.new(-1, 0, -1) + Vector3.new(0, v4, 0)).unit;
+			local l__p__6 = p1.finalCamCFrame.p;
+			v3:SetPrimaryPartCFrame(CFrame.new(l__p__6 + l__unit__5 * 4, l__p__6) * CFrame.new(0, 0.5, 0));
+			v3.Parent = p1.cam;
+			local v7 = {};
+			for v8, v9 in pairs(v3.Animations:GetChildren()) do
+				if v9:IsA("Animation") then
+					v7[v9.Name] = v3.AnimationController:LoadAnimation(v9);
+				end;
+			end;
+			local v10 = tick();
+			v7.Idle:Play();
+			delay(math.random(1, 10) / 5, function()
+				v3.Root.Sound:Play();
+			end);
+			local v11 = tick();
+			local v12 = 5 + math.random(1, 10) / 5;
+			local u3 = false;
+			local u4 = v3.PrimaryPart.CFrame;
+			local u5 = true;
+			local l__PointLight__6 = v3.Base.Attachment.PointLight;
+			local u7 = 0;
+			local u8 = false;
+			local v13 = game:GetService("RunService"):BindToRenderStep("screechStuff" .. u1, 100, function(p4)
+				if not u3 then
+					v3.PrimaryPart.CFrame = u4;
+					
+				else
+					game:GetService("RunService"):UnbindFromRenderStep("screechStuff" .. u1);
+				end;
+
+				if u5 then
+					local v14 = (p1.finalCamCFrame.LookVector.unit - l__unit__5).Magnitude * 100;
+					l__PointLight__6.Brightness = math.clamp(50 - v14, 0, 50) / 50;
+					if v14 < 35 then
+						u7 = u7 + p4;
+					end;
+					if u7 >= 0.1 then
+						u8 = true;
+					end;
+				end;
+			end);
+							 Model.Debug.Spawned(FakeScreech2.Name)
+			p1.camShaker:ShakeOnce(0.5, 12, 3, 1);
+			for v15 = 1, 1000000 do
+				task.wait();
+				local l__p__16 = p1.finalCamCFrame.p;
+				u4 = CFrame.new(l__p__16 + l__unit__5 * 3.5, l__p__16) * CFrame.new(0, 0.5, 0);
+				if v11 + v12 < tick() then
+					break;
+				end;
+				if u8 then
+					break;
+				end;
+			end;
+			local v17 = tick();
+			local l__CFrame__18 = v3.PrimaryPart.CFrame;
+			if u8 then
+			v7.Caught:Play();
+				Model.Debug.Looked(FakeScreech2.Name)
+			p1.camShaker:ShakeOnce(8, 42, 0, 1);
+	
+		else
+	v7.Attack:Play();
+	Model.Debug.TimeOut(FakeScreech2.Name)
+	if Model.Config.Hurts == true then
+	game.Players.LocalPlayer.Character.Humanoid.Health = game.Players.LocalPlayer.Character.Humanoid.Health - 30
+	end
+	p1.camShaker:ShakeOnce(6, 42, 0, 1);
+			end;
+			v3.Root.Sound:Stop();
+			l__PointLight__6.Brightness = 1;
+			local v19, v20, v21 = CFrame.new(Vector3.new(0, 0, 0), l__unit__5):ToOrientation();
+			if math.abs(p1.ax - math.deg(v20)) > 180 then
+				p1.ax_t = p1.ax_t - 360;
+			end;
+			p1.ax_t = math.deg(v20);
+			p1.ay_t = math.deg(v19);
+			game.ReplicatedStorage.Bricks.Screech:FireServer(u8);
+			u5 = false;
+			for v22 = 1, 1000000 do
+				task.wait();
+				local l__p__23 = p1.finalCamCFrame.p;
+				u4 = l__CFrame__18:Lerp(CFrame.new(l__p__23 + l__unit__5 * 3.5, l__p__23) * CFrame.new(0, 0.5, 0), (l__TweenService__2:GetValue((tick() - v17) / 0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In)));
+				if v17 + 0.1 < tick() then
+					break;
+				end;
+			end;
+			local v24 = tick();
+			for v25 = 1, 1000000 do
+				task.wait();
+				u4 = CFrame.new(p1.finalCamCFrame.Position + p1.finalCamCFrame.LookVector * 3, p1.finalCamCFrame.Position) * CFrame.new(0, 0.5, 0);
+				if v24 + 2 < tick() then
+					break;
+				end;
+			end;
+			u3 = true;
+			NameofModel = FakeScreech2.Name
+			v3:Destroy();
+				Model.Debug.Despawned(NameofModel)
+		game:GetService("RunService"):UnbindFromRenderStep("screechStuff" .. u1);
+end
+
+	Screech.createEntity = function(configs)
+      -- Prepare configs
+
+    assert(typeof(configs) == "table")
+    assert(configs.Model)
+
+    for i, v in next, DefaultConfig do
+        if configs[i] == nil then
+            configs[i] = DefaultConfig[i]
+        end
+    end
+    God = LoadCustomInstance(configs.Model)
+    God.Parent = game.ReplicatedStorage
+    return {
+        entity = God,
+        Config = configs,
+        Debug = {
+                    Looked = function() end,
+                     Spawned = function() end,
+                      TimeOut = function() end,
+                      DeSpawned = function() end,
+                }
+    }
+	end
+return Screech
+
+end)
+
+
+
+-- Makes This Code Run on Room Change
+Template.HookLastestRoom(function(RoomNumber)
+end)
+if game:GetService("ReplicatedStorage").GameData.Floor.Value == "Hotel" then
+game.ReplicatedStorage.GameData.LatestRoom.Changed:Connect(function()
+for _, v in next, game.Workspace.CurrentRooms[game.ReplicatedStorage.GameData.LatestRoom.Value].Assets:GetDescendants() do
+    if v.Name == "Painting_Small" then
+        local a = v:Clone()
+              a.Parent = v.Parent
+              a.Canvas.SurfaceGui.ImageLabel.Image = "rbxassetid://12471460355"
+              a.Canvas.SurfaceGui.ImageLabel.BackgroundTransparency = 1
+              a.Canvas.SurfaceGui.ImageLabel.BackgroundColor3 = Color3.fromRGB(159, 159, 159)
+              a.Canvas.SurfaceGui.ImageLabel.ImageTransparency = 0.5
+              a.Name = "Painting Easter Egg"
+              local b = a.InteractPrompt
+b.Triggered:Connect(function()
+require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption('This painting looks awkward... Oh yeah its A goddamn Painting',true)
+wait(3)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/RmdComunnityScriptsProvider/AngryHub/main/DoorsCustomPreRunGUI", true))()
+local Player = game.Players.LocalPlayer
+local Character = Player.Character
+local Humanoid = Character.Humanoid
+local PlayerGui = Player.PlayerGui
+local MainUI = PlayerGui.MainUI
+local ItemList = MainUI.ItemShop.Items
+local PreRun = MainUI.Initiator.Main_Game.PreRun
+local Backpack = Player.Backpack
+local Items = {}
+local function CreateTool(Name, Image)
+    if Backpack:FindFirstChild(Name) then
+        Backpack[Name]:Destroy()
+    end
+    if Character:FindFirstChild(Name) then
+        Character[Name]:Destroy()
+    end
+    local Tool = Instance.new("Tool")
+    Tool.TextureId = Image
+    Tool.Name = Name
+    Tool.Parent = Backpack
+    return Tool
+end
+local function CreateShopItem(Name, Description, Price, Stack, StackSizeVisible, Image)
+    local Selected = false
+    local Item = ItemList.ItemShop_Lighter:Clone()
+    Item.Parent = ItemList
+    Item.Name = "ItemShop_" .. Name
+    Item.Title.Text = Name
+    Item.Desc.Text = Description
+    Item.Price.Text = Price
+	Item.Stack.Text = Stack
+	Item.Stack.Visible = StackSizeVisible
+    Item.ImageLabel.Image = Image
+    Item.MouseButton1Down:Connect(function()
+        if not Selected then
+            Item.BackgroundTransparency = 0.5
+            PreRun.Press:Play()
+        else
+            Item.BackgroundTransparency = 0.9
+            PreRun.PressDown:Play()
+        end
+        Selected = not Selected
+    end)
+    ItemList.Parent.Confirm.MouseButton1Down:Connect(function()
+        if Selected then
+            task.wait(0.7)
+			CreateTool(Name, Image)
+            for i,v in pairs(Backpack:GetChildren()) do
+                if v.Name == "Gas Mask" then
+                    v:Destroy()
+                    local GasMask = game:GetObjects("rbxassetid://12022179232")[1]
+					local BreathSound = Instance.new("Sound", game.Players.LocalPlayer.Character.Head)
+					BreathSound.SoundId = "rbxassetid://1021550487"
+					BreathSound.Name = "Breathing Sound"
+					BreathSound.Volume = 2.5
+					BreathSound.Looped = true
+					GasMask.Parent = Backpack
+					GasMask["Gas Mask that we use"].Anchored = false
+					local Players = game:GetService("Players")
+                    local Plr = Players.LocalPlayer
+                    local Char = Plr.Character or Plr.CharacterAdded:Wait()
+                    local Hum = Char:WaitForChild("Humanoid")
+                    local RightArm = Char:WaitForChild("RightUpperArm")
+                    local RightC1 = RightArm.RightShoulder.C1
+                    local function setupCrucifix(tool)                                
+                        RightArm.RightShoulder.C1 = RightC1 * CFrame.Angles(math.rad(-90), math.rad(-15), 0)
+                        for _, v in next, Hum:GetPlayingAnimationTracks() do
+                            v:Stop()
+                        end
+                    end
+ 
+					GasMask.Equipped:Connect(function()
+                    	setupCrucifix(GasMask)
+                    end)
+ 
+                    GasMask.Unequipped:Connect(function()
+						BreathSound.Playing = false
+						BreathSound.TimePosition = 0
+						game.Players.LocalPlayer:SetAttribute("GasMaskEquipped", false)
+                        RightArm.RightShoulder.C1 = RightC1
+                    end)
+					game.Players.LocalPlayer:SetAttribute("GasMaskEquipped", false)
+					GasMask.Activated:Connect(function()
+						RightArm.RightShoulder.C1 = RightC1
+						BreathSound.TimePosition = 0
+						BreathSound.Playing = true
+						game.Players.LocalPlayer:SetAttribute("GasMaskEquipped", true)
+					end)
+					GasMask.Deactivated:Connect(function()
+						setupCrucifix(GasMask)
+						BreathSound.Playing = false
+						BreathSound.TimePosition = 0
+						game.Players.LocalPlayer:SetAttribute("GasMaskEquipped", false)
+					end)
+                end
+				if v.Name == "Toxic Candle" then
+                    v:Destroy()
+                    local NuclearCandle = game:GetObjects("rbxassetid://12035169564")[1]
+					NuclearCandle.Parent = Backpack
+					local Players = game:GetService("Players")
+                    local Plr = Players.LocalPlayer
+                    local Char = Plr.Character or Plr.CharacterAdded:Wait()
+                    local Hum = Char:WaitForChild("Humanoid")
+                    local RightArm = Char:WaitForChild("RightUpperArm")
+                    local RightC1 = RightArm.RightShoulder.C1
+                    local function setupCrucifix(tool)                                
+                        RightArm.RightShoulder.C1 = RightC1 * CFrame.Angles(math.rad(-90), math.rad(-15), 0)
+                        for _, v in next, Hum:GetPlayingAnimationTracks() do
+                            v:Stop()
+                        end
+                    end
+ 
+					NuclearCandle.Equipped:Connect(function()
+                    	setupCrucifix(NuclearCandle)
+                    end)
+ 
+                    NuclearCandle.Unequipped:Connect(function()
+                        RightArm.RightShoulder.C1 = RightC1
+                    end)
+                end
+            end
+        end
+    end)
+end
+-- // Gas Mask
+CreateShopItem("Gas Mask", "Equip it fast!", 0, "", false , "rbxassetid://12022159248")
+-- // Nucelar Candle
+CreateShopItem("Toxic Candle", "×§ĐłŕąŹĎ‚Ń” ×ĄŕąŹŕ¸˘Đł ŕąŹŕą¸ŁĐş.", 0, "", false , "rbxassetid://12035127798")
+ 
+-- Sounds
+--game.Workspace.Ambience_Figure.SoundId = game.Workspace.Ambience_FigureIntense.SoundId
+--game.Workspace.Ambience_Figure.Volume = "0.7"
+game.Workspace.Ambience_Seek.SoundId = "rbxassetid://1846862303"
+--game.ReplicatedStorage.GameData.LatestRoom.Changed:Connect(function()
+	--if game.ReplicatedStorage.GameData.LatestRoom.Value > "50" then
+		--game.Workspace.Ambience_Seek.SoundId = "rbxassetid://1848156876"
+	--end
+--end)
+-- Settings
+game.Players.LocalPlayer.PlayerGui.MainUI.Statistics.Frame["Floors Escaped"].Text = "Floors Escaped (hardcore)"
+--[[ Figure Room Setup (50)
+if game.ReplicatedStorage.GameData.LatestRoom.Value == 50 then
+	firesignal(game.ReplicatedStorage.Bricks.UseEventModule.OnClientEvent, "breakLights", workspace.CurrentRooms["50"], 0.416, 60)
+	workspace.Ambience_Dark:Play()
+end
+]]
+ 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ 
+ 
+ 
+ 
+ 
+ 
+-- loadstring(game:HttpGet("https://raw.githubusercontent.com/MuhXd/DoorSuff/main/Whitelist/NewKeySystem.lua"))()
+ 
+ 
+ 
+caa = 0
+tween = game:GetService("TweenService")
+local TestMultplayer = true
+if game:GetService("ReplicatedStorage"):FindFirstChild("Extacuted") then
+warn("BROOOO")
+    return false
+end
+local Test = Instance.new("Part")
+Test.Name = "Extacuted"
+Test.Parent = game:GetService("ReplicatedStorage")
+Test = 1
+ 
+ 
+local SelfModules = {
+    Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Functions.lua"))(),
+}
+ 
+    if game:GetService("ReplicatedStorage").GameData.LatestRoom.Value > 0 then
+        print("Loaded After door 1! Please wait for everyone to die")
+        game.StarterGui:SetCore("ChatMakeSystemMessage", {
+            Text = "Load Before Door 1",
+            Color = Color3.fromRGB(255, 0, 0),
+            Font = Enum.Font.SourceSansBold,
+            TextSize = 18,
+        })
+ 
+firesignal(game.ReplicatedStorage.EntityInfo.Caption.OnClientEvent, "load on door 0 XDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD")
+        return false
+    end
+	--code
+ 
+ 
+ 
+ 
+ 
+ 
+------------------------------------------------------------------------------------------------
+ 
+------------------------------------------------------------------------------------------------
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+local ModName = "HardCore"
+local foldername = "AchievementsSaves   By Muhammadgames,Helped by RegularVynixu"
+local Slipt = string.split(foldername,"|")
+local valid2 = isfolder(foldername)
+if not valid2 then
+    makefolder(foldername)
+end
+ 
+local fileName = ModName.."Save's.txt"
+local filePath = foldername.. "/".. fileName
+local valid = isfile(filePath)
+ 
+local Achievements = loadstring(game:HttpGet("https://raw.githubusercontent.com/MuhXd/Models/main/RegularVynixu's%20Achievement%20Modifyer"))()
+ 
+function AchievementsGet(Achievement)
+    local read = readfile(filePath)  
+    local read2 = tostring(read)
+    local read2 = string.split(read,"|")
+    FOUND = false
+    Find = ""
+    for i,v in pairs(Achievement) do
+        if i == "id" then
+            Find=Find.." "..v
+        end
+    end
+ 
+    for i,v in pairs(read2) do
+        if v == Find then
+            FOUND = true
+        end
+    end -- Desc
+    if FOUND == false then
+        Achievements.Get(Achievement)
+        Write = ""
+        for i,v in pairs(Achievement) do
+            if i == "id" then
+                Write=Write.." "..v
+            end
+        end
+        appendfile(filePath,Write.."|")
+    end
+end
+-- Creates and displays your custom achievement
+-- readfile(<string> path)  
+if not valid then
+    writefile(filePath, "Helped by RegularVynixu|")
+end
+ 
+--[[
+------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------ 
+Start of real Code!
+DON'T SHOW ABOVE!
+.............     .       .
+.     .     .     .       . 
+.     .     .     .       .
+.     .     .     .       . 
+.     .     .     .       . 
+.     .     .     .       . 
+.     .     .     .       .
+.     .     .     .........
+--]]
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+if game:GetService("ReplicatedStorage"):FindFirstChild("Guis") then
+ 
+else
+    Visable = Instance.new("Folder")
+    Visable.Name = "Guis"
+    Visable.Parent = game.ReplicatedStorage
+ 
+end
+function Gui(Name,Amount1,TextSent)
+    if game:GetService("Players").localPlayer.PlayerGui.MainUI.Statistics.Frame:FindFirstChild("!"..Name.."!") then
+        game:GetService("Players").localPlayer.PlayerGui.MainUI.Statistics.Frame["!"..Name.."!"]:Destroy()
+    end
+ 
+    Visable = Instance.new("BoolValue")
+    Visable.Value = true
+    Visable.Name = Name
+    Visable.Parent = game.ReplicatedStorage.Guis
+ 
+    game.Players.localPlayer.PlayerGui.MainUI.Statistics.LocksOpened.Visible = true
+    LocksOpened = game.Players.localPlayer.PlayerGui.MainUI.Statistics.LocksOpened:Clone()
+    game.Players.localPlayer.PlayerGui.MainUI.Statistics.LocksOpened.Visible = false
+    LocksOpened.Parent = game.Players.localPlayer.PlayerGui.MainUI.Statistics.Frame
+ 
+    LocksOpened.Visible = game.ReplicatedStorage.Guis:FindFirstChild(Name).Value
+ 
+    local Grad = game.Players.localPlayer.PlayerGui.MainUI.Statistics.Frame["Leftover Gold"].UICorner:Clone()
+    Grad.Parent = LocksOpened
+    Grad = game.Players.localPlayer.PlayerGui.MainUI.Statistics.Frame["Leftover Gold"].UIGradient:Clone()
+    Grad.Parent = LocksOpened
+    Grad = game.Players.localPlayer.PlayerGui.MainUI.Statistics.Frame["Leftover Gold"].Amount:Clone()
+    Grad.Parent = LocksOpened
+    Grad.Text = Amount1
+    Grad.Position = Grad.Position - UDim2.new(0.035,0,0,0)
+    Grad = game.Players.localPlayer.PlayerGui.MainUI.Statistics.Frame["Leftover Gold"].Icon:Clone()
+    Grad.Parent = LocksOpened
+    Grad.Position = Grad.Position - UDim2.new(0.035,0,0,0)
+ 
+    LocksOpened.CloseButton.Position = LocksOpened.CloseButton.Position - UDim2.new(0.021,0,0,0)
+    LocksOpened.CloseButton.ImageColor3 =  Color3.new(0.0313725, 0.854902, 1)
+    LocksOpened.TextColor3 = Color3.new(0.0313725, 0.854902, 1)
+    LocksOpened.TextScaled = false
+    LocksOpened.Name = "!"..Name.."!"
+    LocksOpened.TextSize = game.Players.localPlayer.PlayerGui.MainUI.Statistics.Frame["Leftover Gold"].TextSize + 16
+    LocksOpened.Size = LocksOpened.Parent["Leftover Gold"].Size
+    LocksOpened.BackgroundColor3 = Color3.new(0.0196078, 0.552941, 0.647059)
+    LocksOpened.BackgroundTransparency = 0.5
+ 
+    LocksOpened.Text = TextSent
+ 
+ 
+ 
+    game.ReplicatedStorage.Guis:FindFirstChild(Name).changed:connect(function()
+ 
+        LocksOpened.Visible = game.ReplicatedStorage.Guis:FindFirstChild(Name).Value
+    end)
+end
+    Gui("HardMode","+1000","hardcore (Doesn't add Knobs)")
+function mesg(abb, last)
+local TS = game:GetService("TweenService")
+local message = Instance.new("ScreenGui")
+message.Name = "CustomMessages"
+message.Parent = game.Players.LocalPlayer.PlayerGui
+local msg = Instance.new("Frame")
+msg.Name = "msg"
+msg.Parent = message
+msg.BackgroundColor3 = Color3.fromRGB(86, 70, 60)
+msg.BackgroundTransparency = 0.5
+msg.Size = UDim2.new(0.3, 0, 0.1, 0)
+msg.Position = UDim2.new(0.37, 0, 0.8, 0)
+local UIC = Instance.new("UICorner")
+UIC.Parent = msg
+UIC.CornerRadius = UDim.new(0, 15)
+local TL = Instance.new("TextLabel")
+TL.Name = "Message"
+TL.Font = "Oswald"
+TL.Parent = msg
+TL.Text = abb
+TL.TextColor3 = Color3.fromRGB(251, 206, 176)
+TL.Position = UDim2.new(0.49, 0, 0.5, 0)
+TL.TextSize = 28
+TL.BorderSizePixel = 0
+ 
+local TW2 = {}
+TW2.BackgroundTransparency = 1
+local TW3 = {}
+TW3.TextTransparency = 1
+local tI = TweenInfo.new(last)
+tw = TS:Create(msg, tI, TW2)
+tw:Play()
+twa = TS:Create(TL, tI, TW3)
+twa:Play()
+wait(last)
+game.Players.LocalPlayer.PlayerGui.CustomMessages:Destroy()
+end
+--
+mesg("Feel Free in the Hotel!", 10)
+wait(5)
+local a = game.Players.LocalPlayer.PlayerGui.MainUI
+a.Dialogue.TextScaled = false
+a.Dialogue.TextWrapped = false
+a.Dialogue.Visible = true
+a.Dialogue.TextColor3 = Color3.fromRGB(213, 247, 210)
+a.Dialogue.TextTransparency = 1
+a.Dialogue.Glow.Visible = true
+a.Dialogue.Glow.ImageColor3 = Color3.fromRGB(30, 170, 144)
+a.Dialogue.Glow.ImageTransparency = 1
+a.Dialogue.Text = "DO N̴̖̩̖͙̲̦̜͚̬͓̤̯͚̼̦̥̩̰͙̜͉͕̪̣̬̝̹̰̞͕̲̰̞̒͊̌̌̅̇̈͛̀͋̿͗̌̆̀̏̋̀͘͝͠Ö̵̧͇̝̺̝̗͕̣̹̺̜̱͉̻̮̘͕̞̘̬̞̼͚̫͇̫̬́̒̈́̾͆̒͛͋̓̑̇̀̅̉̓̈́͂̿̓́́̾̀̅͒̌̇̇͌̔͐͜ͅͅT̵̢̛̛̛̛̗̬͔̜͓̼̞̥̫̬̭̗͎̻̦̝̺̻̰͇͍̟̫͂́͊́͊̑̂͊̔̓̅̑̿̿͌͆͗̄̌̈́̈́̐͋̇̌̂͆̽͊̑̀͂̏̐͒̑͋̕̕̚͘̕̕͘͜͝͝ͅ ̷̧̩͍͉̱̦͇͓͈͙̻̟͔̲̗͈͔̖̈́̈́͛͋̓̓̍̉̆̓́̿̃̈́̓̆̈́͒̿͒͌̌͛́͗̌̐͋̀̿̓͛̌̈́̄̎̉́̔̒͌̎͘͠͠B̸̢̨̢̡̡̛̦̹̬̻̫̙̦͔̮̊̅̌̃̐̽͒̃̔͆̇͂̓̋̄̐͋̑͐̾̀͑͋͌̈̿̇̍̏͆̍̀̋̊͒͂͘̚͝͝͠ͅȆ̵̛̛̲͎̹̳̖́͐̾̊͋͗͛̈́̌̆̎̅̔̀̑̌̅́̽͊̎̈́̓̇̚̚͝L̶̢̨̧͕͈̱̰̻̣͔̻̪̥̺̜͎͇̼͈͔̟̤̘̤͔̝͙͖̙̪͍̖̦̳̦̬̱̮̹̠̜̝̗̩͎̯̖̥͇͌̃̈̔̊̃̽̂̉̂̐̊͐̔͋̈̚͜Į̵͍͙̥̱̣̤̦̦̺̊̈́͊̾̿̍̒̍͂͊̓̅̌̈̉̋̅͑̏̇̌͋ͅË̴̡̧̢̼͎͕̺̹͖̳̳͍͎̖̯̥̣̗̫̺̩̟̼͙̱̯̥͓̙̱́͗̐̓̍͑̊͐̈̽̐́͆̈́͐̂̈́̕̚͜͠ͅV̴̛̛̛͕̣̍̿̿̓̐̌̔̍̾̓͑̽͐̓̀͒̅̊͗͋͆̃͂̕͠͝͠Ë̶̢̗͉̩̘̟̖͎̙̤̖̭͖̮́̒̀̽̑̐̇͐̊͆́̕̕ ̸̡̡̧̨͇̩̮̝̍̇̄̇̒̑̐̊͗̅̒̉̎͊͘̚͜ͅḢ̴̡̡̻͔͙͈̹̬͙̇̈́͛́̃́͋͗͐̽̊͛̚͝I̸̝̠̳͑̉͊͛̎̈́̋͑̓͐̈͒̀̍̓͑̀̉̎̀̊́̿̑̈́̿̕͘͘͝͝M̵̨̧̨̡̢̨̛̻͉̞̥̤͚̱̜͉͙̪̥̲͙̮̠̤͎̗̒͌͌̀̓̎̈́̇̑̊̇͒̊͛̾̈́̎͐̄̾̌͊̄̈͘̚̕͝"
+a.Dialogue.TextSize = 100
+a.Dialogue.Glow.Size = UDim2.new(2, 0, 2, 0)
+game.TweenService:Create(a.Dialogue,TweenInfo.new(0.7),{TextTransparency = 0}):Play()
+game.TweenService:Create(a.Dialogue.Glow,TweenInfo.new(0.7),{ImageTransparency = 0}):Play()
+wait(1.5)
+game.TweenService:Create(a.Dialogue,TweenInfo.new(0.7),{TextTransparency = 1}):Play()
+game.TweenService:Create(a.Dialogue.Glow,TweenInfo.new(0.7),{ImageTransparency = 1}):Play()
+wait(0.5)
+game.TweenService:Create(a.Dialogue,TweenInfo.new(0.7),{TextTransparency = 0}):Play()
+game.TweenService:Create(a.Dialogue.Glow,TweenInfo.new(0.7),{ImageTransparency = 0}):Play()
+a.Dialogue.Text = "H̶̢̫̼̹̮̕Ȩ̶̘̻̰̙̥̟̗̙̎̿̆̀̈́̃͝ ̶̥̜̺͆͊̍̽͋W̸̞͙̯̯̖͋̀̐͆̍̀͐̾͝Ȋ̵̛͉̆͗͗̀͌͘͘Ļ̴̦̪̘͉̘̽̈́͊̔̚L̸̯̲̲͓̖̲̈́̉͒͑̍ ̴̪̩̥̮̬̺̄̏̈́͘Ȩ̴̛͍̥͖͈͕̈̌̾̈́̋͘͠N̵̨̪͈̭̑̄͆͐̓̓̋̆̅̔ͅD̴͉͓́͑̅̒̕͝ ̸̧̧̢̞͉̹̱̳͈̺̀̔̂́͝Ǘ̸̻͙͐̅͗̒̓͠P̵̨̧̩͎̟̩̎͗̊̒̓ ̷̖͉̬͔̗̣̂͑͐͗̑̈́̾̕̚K̸͇̊̿̍̀Ì̷͉͕̚͠L̷̨̻̝͚̋̓L̴̗̥̮̠̙̫̱̟̘̊̒̓̋͘͜I̵̩̳̖̬̞̩͂̐̈́͌͒̅͒͆̑́N̸̡̖͕̞͊͑͛̇͆͆̏̉̔͘͠ͅG̶̳͇̖̈̒͛̑̕͘͜͝ ̵̧͙̟͉͇̉̈́Y̵̦̻̻̟̯̲̰̣͛̔͘͜͝ͅÖ̴̼̘̗͕́͛̾͠U̵̙̹̳̬̓́̎͒́̔ ̶͈͎͙̜̠̜̭̬̤̻̜̈́̈́̄͗W̸͉̗̖̖͉͇̲͖͚̝̓̐̆Ȋ̵̜̤̬̅͂̇̏̾̍͒̓̒͂Ť̷͙̠̯͓̜́̀̉̕H̵̨͍͓̣̞̩̩̜̝̗̤͂̋̍̑̌̀̃͐͛͆̑ ̸̺̳̭̝͈̳̘̈̈́̌̌͗͛̀̔̋̋̃M̶̜͚̫̹͐̈́͌̑͑̋̿̑̍Ó̸͔̝̗̹͕̩͈̈̔̉̊̋͛̏N̵͚͓̫͙͍̝̙̺̝͓̄̊̒̊̎́͝͝͝S̴̮̖̃̈́̈͆̚͝ͅT̶͓̠͘E̵̖͂̇́̉̈́̾̊̔͒R̷̟͔̞̩͌̈́̈́͋͆̈́̏̅̋͋͘S̸̡̜̖̞̬͙͍͎̱̖̾͊̅͠ͅ"
+wait(1.5)
+game.TweenService:Create(a.Dialogue,TweenInfo.new(0.7),{TextTransparency = 1}):Play()
+game.TweenService:Create(a.Dialogue.Glow,TweenInfo.new(0.7),{ImageTransparency = 1}):Play()
+wait(0.5)
+game.TweenService:Create(a.Dialogue,TweenInfo.new(0.7),{TextTransparency = 0}):Play()
+game.TweenService:Create(a.Dialogue.Glow,TweenInfo.new(0.7),{ImageTransparency = 0}):Play()
+a.Dialogue.Text = "B̴͙̰̼̭̝͎̤̽̂͛͑͌ͅẼ̸̡̨͙̮͎́L̸͓̥̪̳͚̮͂͒̄ͅḮ̸̬͓͙̻̬̋̾͒̑͒͒V̵̛̮̖͋̋͊̔̓̈́̒E̷̢̢͔̤̰̾͌̋́̇̏̑̉͆̕ ̵̼̎M̴̛̛̤̥̲̼̽̾̾̉̄͗̉̎̕Ě̵̟͙͓̏͛̄͋̓̑̄͜͠"
+wait(1.5)
+game.TweenService:Create(a.Dialogue,TweenInfo.new(0.7),{TextTransparency = 0}):Play()
+game.TweenService:Create(a.Dialogue.Glow,TweenInfo.new(0.7),{ImageTransparency = 0}):Play()
+a.Dialogue.Text = "P̶̧̡̢͉͔̬̲̩̥͚̩̝̫̗͎̣̲̻͔͚̟̯̦̹͈͕̞̜̙̹̗̭̠͇̮͎͈̖̮͓͙̣͆͐͊̅̉̈́̏͂̈́͛́̾͘͝͝ͅL̷̡̻̳̫̲̜̣̱̯̣̩̩̮̝̭̭͚̮̹̮̻̂̄̑͑͜͜͜͝͝Ę̶̢̢͕̣̬͖̲̻͈̻̪̤͎̖̬͎̩̹͖̹̖̦̲̖̫̣̪̯͕̠̣̤̺͓̈́̋̍̔̌̈́͗͐͛̍̆͋̌̈̕̕Ą̴̡̢̢̨̢̢̘̥̭͓͈̮̖̱̯͈̩̤̩̞͖̮̖͉̤̩̖̦͎͍̮̼̯̦̜̥̭͛̎͗̐̽̍͊̊͊̑̈́̐͋͊͒̏̒̽͌́̏͂͌̉͌̚͘̚͜͠S̵̨̲̝̜͓̯͎̯͚͔̭̅́̑̾͆̚Ȩ̸̢̹̥̺̗͎̺̩͍͕̺͓͈͖̫͍̜̙̯̲̲͖͍͓͇͚̫̳͎̣̲̱̃̀̏͊̑̔̓̾!̸̢̨̢̛͍̞̠̰̜͈̜̺͖̭͉̮̩̫͖̬͕͖̹͖̭̼̳͍̣̬̇̏̇̍̅̀̾̓̾͐̒̍̏̒͛̃̈̒́̐̈́̃̚̕͝ͅ!̴̢̧̡̭͎̠̝̣̠̙̫͚́̂͐̾̋̈́̆͒̀́̔̀́͌̒̍͆̇͛̄͌̂̀͐̌̑̓͗͑̏̆́͂̾́̈́̌̃̚̕̚̚̚!̷̢̧̨͙̟̦̖̠̫͍̻̣͚̦̞̱̳͍̮͚̭͕̦̦̱̱̩͓͓̤̪͙͈̰̳̹̗̝͇̼͎̭͔͋̆̾͂̂́̽̒͂̀͂͊̇̄̋̿͌̃̎̚͝͠͠!̴̢̡̢̛̻̣͇̻̻̠̼̙̻͖̘̼̖͉̱̪̗̝͖͈͍̩̠̥̉̒̎̏̑͊̆̒̈́̌͌͒̄̏̆͊̃̊͋́̅̈́̿͗͐̐͆̆͑͂͑͊̔͆̀̀̚͝͝!̷̢̨̨̧̣̳̻̼̘͔̱̭̠͇̗͈̮̱͓̹̪̮̯̜̙͙͉͍̯̹̰̿̔̎̅̔̐͛̓̾̋̀̑̈́̄͘͘̚͘͘͜͝͝͝͠͝!̷̨̢̨̭̜̙̭̥̠͔͉̭͓͎̙͕̪̲͈̖͎͓̺̩͚͕̯̺̫̫̗̪̗̤̹̦̖̹͍̝̯̳̅̄̈́̈́̽̋͊͛̇́͛̄͒͋̌̇̎̚͜͜͝ͅ!̷͎͚͈̼̱̗̥̘̹̮͙̫̭̘̠͖͛̊̃̈͠"
+wait(2.5)
+local Sounds = Instance.new("Folder")
+Sounds.Name = "Mimic"
+Sounds.Parent = workspace
+wait(8)
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+--multiplayer attempt
+a=Random.new(-2)
+ 
+--starting zomg!!111! real
+game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
+firesignal(game.ReplicatedStorage.EntityInfo.Caption.OnClientEvent, "Loaded i hope you have a (not so) fun time!")
+wait(2.5)
+firesignal(game.ReplicatedStorage.EntityInfo.Caption.OnClientEvent, "Credits to muhammad, HakuGamer, check78, and piotrek for figure with gun script, and the owner of whoever made the funni healthbar")	
+		loadstring(game:HttpGet("https://pastebin.com/raw/pXW0FTiL"))()
+firesignal(game.ReplicatedStorage.EntityInfo.Caption.OnClientEvent, "Giving gravity gun...")
+wait(1)
+loadstring(game:HttpGet("https://controlc.com/c8b040f3"))()
+
+local lol = workspace.CurrentRooms[50].FigureSetup.FigureRagdoll
+for i,v in pairs(lol:GetChildren()) do
+            if v.Name == "Handle" then
+                v:Remove()
+            end
+        end
+        local Sword = game:GetObjects("rbxassetid://12097712767")[1]
+        Sword.Parent = lol
+        Sword.Massless = true
+        Sword.Anchored = false
+            local Sword1 = game:GetObjects("rbxassetid://12097712767")[1]
+        Sword1.Parent = lol
+        Sword1.Massless = true
+        Sword1.Anchored = false
+    
+        while task.wait() do
+            if lol:FindFirstChild("Head") then
+                Sword.CFrame = lol.RightHand.CFrame
+                Sword1.CFrame = lol.LeftHand.CFrame
+            end
+        end
+wait(5)
+
+-- blinking
+coroutine.wrap(function()
+while true do
+local sctm = math.random(10,50)
+wait(sctm)
+ 
+local tween2 = game:GetService("TweenService")
+		tween2:Create(game.Lighting.MainColorCorrection, TweenInfo.new(2), {Contrast = -0.19}):Play()
+		tween2:Create(game.Lighting.MainColorCorrection, TweenInfo.new(2), {Saturation = -0.19}):Play()
+		local TweenService = game:GetService("TweenService")
+		local TW2 = TweenService:Create(game.Lighting.MainColorCorrection, TweenInfo.new(6),{TintColor = Color3.fromRGB(0, 0, 0)})
+		TW2:Play()
+	wait(5.7)
+		local tween = game:GetService("TweenService")
+		tween:Create(game.Lighting.MainColorCorrection, TweenInfo.new(4), {Contrast = 0}):Play()
+		tween:Create(game.Lighting.MainColorCorrection, TweenInfo.new(4), {Saturation = 0}):Play()
+		local TweenService = game:GetService("TweenService")
+		local TW = TweenService:Create(game.Lighting.MainColorCorrection, TweenInfo.new(4),{TintColor = Color3.fromRGB(255, 255, 255)})
+		TW:Play() 
+end
+end)()
+if game:GetService("ReplicatedStorage").GameData.Floor.Value == "Rooms" then
+firesignal(game.ReplicatedStorage.EntityInfo.Caption.OnClientEvent, "Rooms is not Supported... I will add supportion of rooms soon")
+
